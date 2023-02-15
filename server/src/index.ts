@@ -2,11 +2,13 @@ import express from 'express';
 
 const app=express();
 
-const info={
-    nome:"Felipe",
-    sobrenome: "Seabra",
-    idade:23
-}
+const info=[
+    { "name": "Eduardo", "age": 15.6 },
+    { "name": "João", "age": 22.9 },
+    { "name": "Maria", "age": 33.4 },
+    { "name": "Paulo", "age": 10.1 },
+    { "name": "Ana", "age": 19.3 }
+  ]
 app.get('/',(req,res)=>{
     res.json(
         info
