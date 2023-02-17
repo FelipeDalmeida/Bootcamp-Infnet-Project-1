@@ -23,10 +23,10 @@ const getDoc = async () => {
 
 
 
-const pushDataSpreadsheet = (data)=>{
+const pushDataSpreadsheet = (data,id)=>{
     let sheet;
     getDoc().then(doc => {
-            sheet = doc.sheetsByIndex[0];
+            sheet = doc.sheetsByIndex[id];
             sheet.addRow(data)               //receber data sempre como Json
             .then(() => {
                 console.log('dado salvo!')
@@ -34,10 +34,10 @@ const pushDataSpreadsheet = (data)=>{
         });
 }
 
-const getDataSpreedsheet = async()=>{
+const getDataSpreedsheet = async(id)=>{
     let sheet;
     await getDoc().then(doc => {
-        sheet = doc.sheetsByIndex[0];
+        sheet = doc.sheetsByIndex[id];
         // sheet.getRows().then(rows => {
         //     rows.map(row => {
         //         console.log(row.Nome);
@@ -48,9 +48,14 @@ const getDataSpreedsheet = async()=>{
     return sheet.getRows()  //retorna um array com objeto de dado de cada coluna, para acessar dados só selecionar posição da coluna e key do objeto (ex: Nome)
 }
 
-
+const createNewSpreedsheet = async(id)=>{
+    await getDoc().then(doc=>{
+    doc.addSheet({ title: `Paciente${id}` });
+    console.log(`Planilha do Paciente ${id} Criada`)
+    })
+}
 
 
 // pushDataSpreadsheet({Nome:"Carlos",Idade:30})
 
-export {pushDataSpreadsheet,getDataSpreedsheet}
+export {pushDataSpreadsheet,getDataSpreedsheet,createNewSpreedsheet}
