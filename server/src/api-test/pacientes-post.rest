@@ -1,0 +1,9 @@
+POST  http://localhost:8080/pacientes/
+Content-Type: application/json
+
+{
+    "nome":"Lua",
+    "idade":10,
+    "altura":30,
+    "peso":8
+ }

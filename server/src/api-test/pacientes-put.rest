@@ -1,0 +1,9 @@
+PUT  http://localhost:8080/pacientes/2
+Content-Type: application/json
+
+{
+    "nome":"Lua",
+    "idade":10,
+    "altura":30,
+    "peso":8
+ }
