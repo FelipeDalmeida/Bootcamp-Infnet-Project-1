@@ -1,4 +1,4 @@
-POST  http://localhost:8080/pacientes/
+PUT  http://localhost:8080/pacientes/2
 Content-Type: application/json
 
 {

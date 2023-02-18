@@ -1,15 +1,21 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet'
 import { readFile } from 'fs/promises'
 
+//const GoogleSpreadsheet = require('google-spreadsheet')
+//const readFile = require('fs/promises')
+//const credenciais = require('./key.json')
+
 const spreadsheetId="1h-djyATMJOc_MZoGAlFZkQ3N4XI5y_nqedLbhhVYkHU"
 
 const credenciais = JSON.parse(
+    
     await readFile(
-      new URL('./key.json', import.meta.url)
+      new URL('./key.json',import.meta.url)
     )
   );
 
 const getDoc = async () => {
+    
     const doc = new GoogleSpreadsheet(spreadsheetId);
     
     await doc.useServiceAccountAuth({
@@ -23,7 +29,7 @@ const getDoc = async () => {
 
 
 
-const pushDataSpreadsheet = (data,id)=>{
+export const pushDataSpreadsheet = (data,id)=>{
     let sheet;
     getDoc().then(doc => {
             sheet = doc.sheetsByIndex[id];
@@ -34,7 +40,7 @@ const pushDataSpreadsheet = (data,id)=>{
         });
 }
 
-const getDataSpreedsheet = async(id)=>{
+export const getDataSpreedsheet = async(id)=>{
     let sheet;
     await getDoc().then(doc => {
         sheet = doc.sheetsByIndex[id];
@@ -48,7 +54,7 @@ const getDataSpreedsheet = async(id)=>{
     return sheet.getRows()  //retorna um array com objeto de dado de cada coluna, para acessar dados só selecionar posição da coluna e key do objeto (ex: Nome)
 }
 
-const createNewSpreedsheet = async(id)=>{
+export const createNewSpreedsheet = async(id)=>{
     await getDoc().then(doc=>{
     doc.addSheet({ title: `Paciente${id}` });
     console.log(`Planilha do Paciente ${id} Criada`)
@@ -58,4 +64,4 @@ const createNewSpreedsheet = async(id)=>{
 
 // pushDataSpreadsheet({Nome:"Carlos",Idade:30})
 
-export {pushDataSpreadsheet,getDataSpreedsheet,createNewSpreedsheet}
+//module.exports = {pushDataSpreadsheet,getDataSpreedsheet,createNewSpreedsheet}

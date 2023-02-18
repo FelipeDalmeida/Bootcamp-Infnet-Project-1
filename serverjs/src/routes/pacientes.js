@@ -1,16 +1,11 @@
 import express from 'express'
+import { getDataSpreedsheet,pushDataSpreadsheet } from '../googleAPI/googleSpreedsheets.js';
 
 export const pacientes = express.Router();
 
-type Pacientes = {
-    id?:number;
-    nome:string;
-    idade:number;
-    altura:number;
-    peso:number
-}
 
-const listaPacientes:Pacientes[] =[
+
+const listaPacientes=[
     {
         id:1,
         nome:"Felipe",
@@ -46,10 +41,12 @@ pacientes.get('/:id',(req,res)=>{
 
 //add um paciente novo
 pacientes.post('/',(req,res)=>{
+    pushDataSpreadsheet(req.body,0)
     res.status(201).json({
         successes:true,
         data:{
-            id:listaPacientes.length+1,
+            // id:listaPacientes.length+1,
+            // ...req.body
             ...req.body
         }
     });
