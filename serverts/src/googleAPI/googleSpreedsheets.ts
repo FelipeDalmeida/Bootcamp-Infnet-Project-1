@@ -1,3 +1,4 @@
+//Planilha com funções genéricas da API google-spreadsheet
 import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 
@@ -54,6 +55,21 @@ export const getDataSpreedsheet = async(index:number)=>{
     return sheet.getRows()  //retorna um array com objeto de dado de cada coluna, para acessar dados só selecionar posição da coluna e key do objeto (ex: Nome)
 }
 
+export const getDataSpreedsheetByTitle = async(title:string)=>{
+    let sheet:any;
+    await getDoc().then(doc => {
+        sheet = doc.sheetsByTitle[title];  //indice da planilha
+        // sheet.getRows().then(rows => {
+        //     rows.map(row => {
+        //         console.log(row.Nome);
+        //     })     
+        // })
+        
+    })
+    return sheet
+}
+
+
 export const createNewSpreedsheet = async(id:number,header:any)=>{
 
     await getDoc().then(doc=>{
@@ -61,7 +77,6 @@ export const createNewSpreedsheet = async(id:number,header:any)=>{
     console.log(`Planilha do Paciente ${id} Criada`)
     })
 }
-
 
 
 //module.exports = {pushDataSpreadsheet,getDataSpreedsheet,createNewSpreedsheet}

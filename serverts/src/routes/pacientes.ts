@@ -1,42 +1,12 @@
 import express from 'express'
 import { getDataSpreedsheet,pushDataSpreadsheet, createNewSpreedsheet } from '../googleAPI/googleSpreedsheets';
-
+import {deletaPaciente,criaPlanilhaPaciente,carregaPacientes,numeroDePacientes,carregaPacienteID,criaPaciente} from '../googleAPI/googleSpreedsheetsPacientes'
 export const pacientes = express.Router();
 
-type Pacientes = {
-    id?:number;
-    Nome:string;
-    Idade:number;
-    Data_Nascimento:string;
-    Data_Avaliação:string
-}
 
 
-const carregaPacientes = async()=>{
-    const response = await getDataSpreedsheet(0)
-    const Pacientes:Pacientes[]=[]
-    response.map((paciente:Pacientes)=>{
-        Pacientes.push({
-            id:paciente.id,
-            Nome:paciente.Nome,
-            Idade:paciente.Idade,
-            Data_Nascimento:paciente.Data_Nascimento,
-            Data_Avaliação:paciente.Data_Avaliação
-        })
-    })
-    return  Pacientes
-}
 
-const numeroDePacientes=async()=>{
-    const response = await getDataSpreedsheet(0)
-    return response.length
-}
 
-const criaOlanilhaPaciente = async(id:number)=>{
-    await createNewSpreedsheet(id,['Teste1','Teste2','Teste3'])
-    console.log(`Planilha do Paciente id${id} criada`)
-
-}
 
 
 //lista todos os pacientes
@@ -48,19 +18,15 @@ pacientes.get('/',async (req,res)=>{
 });
 
 //lista um paciente especifico
-pacientes.get('/:id',(req,res)=>{
-    res.status(200).json('')
+pacientes.get('/:id',async(req,res)=>{
+    const Paciente =await carregaPacienteID(Number(req.params.id))
+    res.status(200).json(Paciente)
 });
 
 //add um paciente novo
 pacientes.post('/',async(req,res)=>{
-    const id = await numeroDePacientes()+1
-    const data={
-        id:id,
-        ...req.body
-    }
-    pushDataSpreadsheet(data,0)
-    criaOlanilhaPaciente(id)
+
+    const data=await criaPaciente({...req.body})
 
     res.status(201).json({
         successes:true,
@@ -93,11 +59,11 @@ pacientes.patch("/:id", (req, res) => {
 
 // Deleta um paciente
 pacientes.delete("/:id", (req, res) => {
+    deletaPaciente(Number(req.params.id),req.body.spreedsheetTitle)
     res.json({
         success: true,
         data: {
             id: Number(req.params.id),
-            //...listaPacientes[Number(req.params.id) - 1],
         }
     })
 })

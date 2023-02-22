@@ -1,2 +1,6 @@
-DELETE http://localhost:8080/pacientes/1
+DELETE http://localhost:8080/pacientes/2
 Content-Type: application/json
+
+{
+    "spreedsheetTitle":"Paciente2"
+}
