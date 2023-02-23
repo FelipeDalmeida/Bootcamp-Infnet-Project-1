@@ -11,6 +11,7 @@ type Pacientes = {
     id?:number;
     Nome:string;
     Idade:number;
+    Sexo:string;
     Data_Nascimento:string;
     Data_Avaliação:string
 }
@@ -25,6 +26,7 @@ export const carregaPacientes = async()=>{
             Nome:paciente.Nome,
             Idade:paciente.Idade,
             Data_Nascimento:paciente.Data_Nascimento,
+            Sexo:paciente.Sexo,
             Data_Avaliação:paciente.Data_Avaliação
         })
     })
@@ -32,19 +34,20 @@ export const carregaPacientes = async()=>{
 }
 
 export const carregaPacienteID = async(id:Number)=>{
-    let Paciente:Pacientes
+    let Paciente:Pacientes={id:0,Nome:"",Idade:0,Sexo:"",Data_Nascimento:"",Data_Avaliação:""}
     const response = await getDataSpreedsheet(0)
     response.map((paciente:Pacientes)=>{
         if(paciente.id==id){
-        console.log("Paciente")
-        Paciente = {
+        
+        Paciente = {...Paciente,
                 id:paciente.id,
                 Nome:paciente.Nome,
                 Idade:paciente.Idade,
+                Sexo:paciente.Sexo,
                 Data_Nascimento:paciente.Data_Nascimento,
                 Data_Avaliação:paciente.Data_Avaliação
             }
-          
+            console.log(`Paciente ${Paciente.Nome} com id: ${Paciente.id} carregado`)  
         }
     })
     return Paciente 
@@ -88,8 +91,8 @@ export const deletaPaciente = async(id:number,sheetTitle:string)=>{
     rowsPacientes = await getDataSpreedsheet(0)
     sheetPaciente = await getDataSpreedsheetByTitle(sheetTitle)
 
-    let index:number;
-    rowsPacientes.map((row,ind)=>{
+    let index:number=-1;
+    rowsPacientes.map((row:any,ind:any)=>{ //encontrar a coluna do paciente
         console.log(row.id)
         if(row.id==id){
             console.log(`Index:${ind}`)
@@ -106,4 +109,23 @@ export const deletaPaciente = async(id:number,sheetTitle:string)=>{
 
 }
 
+export const alteraDadosPaciente = async(id:number,data:any)=>{
+    let rowsPacientes:any; //rows da Sheet de index 0
+    rowsPacientes = await getDataSpreedsheet(0)
+
+
+    let index:number=-1;
+    rowsPacientes.map((row:any,ind:any)=>{  //encontrar a coluna do paciente
+        if(row.id==id){
+            console.log(`Index:${ind}`)
+            index=Number(ind)
+        }
+    })
+    //data={...rowsPacientes[index],...data}
+    //console.log(data)
+    let keys=Object.keys(data)
+    keys.map(key=>{ rowsPacientes[index][key]=data[key]})
+   
+    await  rowsPacientes[index].save()
+}
 

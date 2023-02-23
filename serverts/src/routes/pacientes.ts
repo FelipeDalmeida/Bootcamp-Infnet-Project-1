@@ -1,6 +1,5 @@
 import express from 'express'
-import { getDataSpreedsheet,pushDataSpreadsheet, createNewSpreedsheet } from '../googleAPI/googleSpreedsheets';
-import {deletaPaciente,criaPlanilhaPaciente,carregaPacientes,numeroDePacientes,carregaPacienteID,criaPaciente} from '../googleAPI/googleSpreedsheetsPacientes'
+import {alteraDadosPaciente,deletaPaciente,criaPlanilhaPaciente,carregaPacientes,numeroDePacientes,carregaPacienteID,criaPaciente} from '../googleAPI/googleSpreedsheetsPacientes'
 export const pacientes = express.Router();
 
 
@@ -35,24 +34,25 @@ pacientes.post('/',async(req,res)=>{
 });
 
 // Sobrescreve os dados de um paciente
-pacientes.put('/:id',(req,res)=>{
+pacientes.put('/:id',async (req,res)=>{
+    await alteraDadosPaciente(Number(req.params.id),req.body)
+    const Paciente =await carregaPacienteID(Number(req.params.id))
     res.status(200).json({
         success: true,
         data: {
-            id: Number(req.params.id),
-            ...req.body,
+            ...Paciente
         },
     });
 })
 
 // Realiza uma atualização parcial nos dados de um paciente
-pacientes.patch("/:id", (req, res) => {
+pacientes.patch("/:id", async (req, res) => {
+    await alteraDadosPaciente(Number(req.params.id),req.body)
+    const Paciente =await carregaPacienteID(Number(req.params.id))
     res.status(200).json({
         success: true,
         data: {
-            id: Number(req.params.id),
-            //...listaPacientes[Number(req.params.id) - 1],
-            ...req.body,
+            ...Paciente
         }
     })
 })

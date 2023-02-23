@@ -1,9 +1,11 @@
-PUT  http://localhost:8080/pacientes/2
+PUT  http://localhost:8080/pacientes/1
 Content-Type: application/json
 
 {
-    "nome":"Lua",
-    "idade":10,
-    "altura":30,
-    "peso":8
+    "Nome":"Rafaela",
+    "Sobrenome":"Kessler",
+    "Idade":30,
+    "Sexo":"Feminino",
+    "Data_Nascimento":"30/11/1992",
+    "Data_Avaliação":"23/02/2023"
  }
