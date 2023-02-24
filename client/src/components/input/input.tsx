@@ -5,11 +5,11 @@ import { FaEye,FaEyeSlash } from "react-icons/fa";
 
 interface MessageProps {
     label: string;
-    type:string;
+    type?:string;
     name?:string;
     id?:string;
     placeholder?:string;
-    labelClassName:string;
+    labelClassName?:string;
     onChange?: (e:any) => void;
     value?:any;
     className?:string;
@@ -23,7 +23,7 @@ const Input =({label,type,name,id,placeholder,onChange,value,className,error}:Me
   const changePasswordVisibility=()=>setShowPassword(!showPassorwd);
   const chageHover=()=>{setHover(!hover)}
 
-  className=`${className} mt-10`
+  className=`${className} m-2`
 
   
 
@@ -40,7 +40,7 @@ const Input =({label,type,name,id,placeholder,onChange,value,className,error}:Me
         type={'password'?(showPassorwd?'text':type):type}
         name={name}
         id={id}
-        className={`block w-full border rounded-md p-2 focus-visible:outline-none border-slate-400 focus:border-sky-600 focus:border-2 ${error?"border-2 border-rose-600 focus:border-rose-600 focus:border-rose-600":""}`}
+        className={`block w-full border rounded-xl p-2 focus-visible:outline-none border-slate-400 focus:border-sky-600 focus:border-2 ${error?"border-2 border-rose-600 focus:border-rose-600 focus:border-rose-600":""}`}
         placeholder={placeholder?placeholder:""}
         onChange={onChange}
         value={value}
@@ -56,7 +56,7 @@ Input.propTypes={
   label:PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string,
-  onchange: PropTypes.func,
+  onChange: PropTypes.func,
   className:PropTypes.string,
   value:PropTypes.string,
   error:PropTypes.string,
@@ -67,10 +67,10 @@ Input.defaultProps={
   label:"",
   id:"",
   name:"",
-  onchange:null,
+  onChange:null,
   value:null,
   className:"",
-  error:false,
+  error:"",
 }
 
 
