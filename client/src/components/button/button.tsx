@@ -11,7 +11,7 @@ interface MessageProps {
 
 const Button =({title,type,onClick,className,fullwidth}:MessageProps)=>{
 
-    className=`p-1 m-1 w-36 font-bold text-white bg-blue-500 border border-blue-500 rounded-xl mt-10 hover:border-blue-800 hover:bg-blue-800 ${className}`
+    className=`p-1 m-1 w-36 font-bold text-white bg-blue-500 border border-blue-500 rounded-xl hover:border-blue-800 hover:bg-blue-800 ${className}`
     fullwidth?className=`${className} w-full`:className=className
 
 

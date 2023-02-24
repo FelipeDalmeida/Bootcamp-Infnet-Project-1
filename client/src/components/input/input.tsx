@@ -11,7 +11,7 @@ interface MessageProps {
     placeholder?:string;
     labelClassName?:string;
     onChange?: (e:any) => void;
-    value?:any;
+    value?:string;
     className?:string;
     error?:string
   }
@@ -32,7 +32,7 @@ const Input =({label,type,name,id,placeholder,onChange,value,className,error}:Me
    
     
     <div className="relative" >
-    <span className={(hover || value)?'bottom-8 pl-3 absolute':"pl-3 bottom-2.5 absolute"}><label htmlFor="price" className="bg-white" >
+    <span className={(hover || value)?'bottom-8 pl-3 absolute':"pl-3 bottom-2.5 absolute"}><label htmlFor="price" className="font-semibold bg-white" >
     {label}
     </label>
     </span>

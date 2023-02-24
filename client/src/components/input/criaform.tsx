@@ -1,21 +1,3 @@
-import Button from "./button/button";
-import Input from "./input/input";
-import PropTypes from 'prop-types'
-
-type MessageProps = {
-    label: string;
-    type?:string;
-    name?:string;
-    id?:string;
-    placeholder?:string;
-    labelClassName?:string;
-    onChange?: (e:any) => void;
-    value?:any;
-    className?:string;
-    error?:string
-  }
-
-
 
 const CriaForm =({inputs,className}:any)=>{  //spamar input
 

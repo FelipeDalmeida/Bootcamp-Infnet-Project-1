@@ -10,6 +10,7 @@ const spreadsheetId="1h-djyATMJOc_MZoGAlFZkQ3N4XI5y_nqedLbhhVYkHU"
 type Pacientes = {
     id?:number;
     Nome:string;
+    Sobrenome:string;
     Idade:number;
     Sexo:string;
     Data_Nascimento:string;
@@ -25,6 +26,7 @@ export const carregaPacientes = async()=>{
             id:paciente.id,
             Nome:paciente.Nome,
             Idade:paciente.Idade,
+            Sobrenome:paciente.Sobrenome,
             Data_Nascimento:paciente.Data_Nascimento,
             Sexo:paciente.Sexo,
             Data_Avaliação:paciente.Data_Avaliação
@@ -34,7 +36,7 @@ export const carregaPacientes = async()=>{
 }
 
 export const carregaPacienteID = async(id:Number)=>{
-    let Paciente:Pacientes={id:0,Nome:"",Idade:0,Sexo:"",Data_Nascimento:"",Data_Avaliação:""}
+    let Paciente:Pacientes={id:0,Nome:"",Idade:0,Sobrenome:"",Sexo:"",Data_Nascimento:"",Data_Avaliação:""}
     const response = await getDataSpreedsheet(0)
     response.map((paciente:Pacientes)=>{
         if(paciente.id==id){
@@ -43,6 +45,7 @@ export const carregaPacienteID = async(id:Number)=>{
                 id:paciente.id,
                 Nome:paciente.Nome,
                 Idade:paciente.Idade,
+                Sobrenome:paciente.Sobrenome,
                 Sexo:paciente.Sexo,
                 Data_Nascimento:paciente.Data_Nascimento,
                 Data_Avaliação:paciente.Data_Avaliação
