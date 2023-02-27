@@ -1,0 +1,15 @@
+PUT  http://localhost:8080/antropometrica/1
+Content-Type: application/json
+
+{
+            "Massa": "Teste",
+            "Estatura": "Teste",
+            "Comprimento_Pe": "Teste",
+            "Altura_Ombro": "Teste",
+            "Largura_Ombro": "Teste",
+            "Envergadura": "Teste",
+            "Altura_Quadril": "Teste",
+            "Largura_Quadril": "Teste",
+            "Altura_Joelho": "Teste",
+            "Altura_Tornozelo": "Teste"
+}

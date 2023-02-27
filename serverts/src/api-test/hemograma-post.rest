@@ -1,0 +1,14 @@
+POST  http://localhost:8080/hemograma/1
+Content-Type: application/json
+
+{
+        "Hemacias": 1111,
+        "Hemoglobina": 2222,
+        "Hematocritos": 3333,
+        "Leucocitos": 4444,
+        "VGM": 5555,
+        "HGM": 6666,
+        "CHGM": 7777,
+        "RDW": 8888,
+        "Plaquetas": 9999
+}

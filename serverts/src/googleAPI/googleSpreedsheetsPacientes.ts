@@ -1,11 +1,9 @@
 // Planilha com funções específicas do projeto de pacientes bootcampinfnet
 
-import { GoogleSpreadsheet } from 'google-spreadsheet'
+
 import { pushDataSpreadsheet, createNewSpreedsheet,getDataSpreedsheet,getDataSpreedsheetByTitle } from './googleSpreedsheets'
 
-const credenciais = require('./key.json')
 
-const spreadsheetId="1h-djyATMJOc_MZoGAlFZkQ3N4XI5y_nqedLbhhVYkHU"
 
 type Pacientes = {
     id?:number;
@@ -72,8 +70,45 @@ export const idNovoPaciente=async()=>{
 }
 
 export const criaPlanilhaPaciente = async(id:number)=>{
-    await createNewSpreedsheet(id,['Teste1','Teste2','Teste3'])
-    console.log(`Planilha do Paciente id${id} criada`)
+
+    const variaveisAntropometrica = [
+        "Massa",
+        "Estatura",
+        "Comprimento_Pe",
+        "Altura_Ombro",
+        "Largura_Ombro",
+        "Envergadura",
+        "Altura_Quadril",
+        "Largura_Quadril",
+        "Altura_Joelho",
+        "Altura_Tornozelo",
+    ]
+    const variaveisComCorporal =[
+        "Massa",
+        "IMC",
+        "Gordura_Corporal",
+        "Gordura_Visceral",
+        "Metabolismo_Basal",
+        "Musculos_Esqueleticos",
+        "Idade_Corporal"
+    ]
+
+    const variaveisHemograma =[
+        "Hemacias",
+        "Hemoglobina",
+        "Hematocritos",
+        "Leucocitos",
+        "VGM",
+        "HGM",
+        "CHGM",
+        "RDW",
+        "Plaquetas"
+    ]
+
+    await createNewSpreedsheet(id,variaveisAntropometrica,`antropometricaid${id}`)
+    await createNewSpreedsheet(id,variaveisComCorporal,`compcorporalid${id}`)
+    await createNewSpreedsheet(id,variaveisHemograma,`hemograma${id}`)
+    console.log(`Planilha do Paciente ${id} criada`)
 
 }
 
@@ -87,12 +122,16 @@ export const criaPaciente = async(data:Pacientes)=>{
 
 }
 
-export const deletaPaciente = async(id:number,sheetTitle:string)=>{
+export const deletaPaciente = async(id:number)=>{
     let rowsPacientes:any;//rows da Sheet de index 0
-    let sheetPaciente:any;//Sheet especifica do paciente
+    let sheetPacienteAntropometrica:any; //Planilha do paciente com a Avaliação Antropométrica
+    let sheetPacienteCompCorporal:any; //Planilha do paciente com a Avaliação de Composição Corporal
+    let sheetPacienteHemograma:any; //Planilha do paciente com o Hemograma
 
     rowsPacientes = await getDataSpreedsheet(0)
-    sheetPaciente = await getDataSpreedsheetByTitle(sheetTitle)
+    sheetPacienteAntropometrica = await getDataSpreedsheetByTitle(`antropometricaid${id}`) 
+    sheetPacienteCompCorporal = await getDataSpreedsheetByTitle(`compcorporalid${id}`) 
+    sheetPacienteHemograma = await getDataSpreedsheetByTitle(`hemograma${id}`) 
 
     let index:number=-1;
     rowsPacientes.map((row:any,ind:any)=>{ //encontrar a coluna do paciente
@@ -106,7 +145,9 @@ export const deletaPaciente = async(id:number,sheetTitle:string)=>{
 
     const nome:string = rowsPacientes[index].Nome
     rowsPacientes[index].delete();
-    sheetPaciente.delete();
+    sheetPacienteAntropometrica.delete();
+    sheetPacienteCompCorporal.delete();
+    sheetPacienteHemograma.delete()
 
     console.log(`Paciente ${nome} com id ${id} deletado`)
 

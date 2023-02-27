@@ -1,0 +1,15 @@
+POST  http://localhost:8080/antropometrica/1
+Content-Type: application/json
+
+{
+            "Massa": "row.Massa",
+            "Estatura": "row.Estatura",
+            "Comprimento_Pe": "row.Comprimento_Pe",
+            "Altura_Ombro": "row.Altura_Ombro",
+            "Largura_Ombro": "row.Largura_Ombro",
+            "Envergadura": "row.Envergadura",
+            "Altura_Quadril": "row.Altura_Quadril",
+            "Largura_Quadril": "row.Largura_Quadril",
+            "Altura_Joelho": "row.Altura_Joelho",
+            "Altura_Tornozelo": "row.Altura_Tornozelo"
+}

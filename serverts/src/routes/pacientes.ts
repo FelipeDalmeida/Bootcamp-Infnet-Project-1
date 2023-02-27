@@ -59,7 +59,7 @@ pacientes.patch("/:id", async (req, res) => {
 
 // Deleta um paciente
 pacientes.delete("/:id", (req, res) => {
-    deletaPaciente(Number(req.params.id),req.body.spreedsheetTitle)
+    deletaPaciente(Number(req.params.id))
     res.json({
         success: true,
         data: {

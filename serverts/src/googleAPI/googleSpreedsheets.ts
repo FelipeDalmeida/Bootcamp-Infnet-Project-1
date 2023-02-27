@@ -41,6 +41,17 @@ export const pushDataSpreadsheet = (data:any,index:number)=>{
         });
 }
 
+export const pushDataSpreadsheetByTitle = (data:any,title:string)=>{
+    let sheet;
+    getDoc().then(doc => {
+            sheet = doc.sheetsByTitle[title];
+            sheet.addRow(data)               //receber data sempre como Json
+            .then(() => {
+                console.log('dado salvo!')
+            })
+        });
+}
+
 export const getDataSpreedsheet = async(index:number)=>{
     let sheet:any;
     await getDoc().then(doc => {
@@ -66,15 +77,28 @@ export const getDataSpreedsheetByTitle = async(title:string)=>{
         // })
         
     })
-    return sheet
+    return sheet //retorna a planilha (usar para deletar ou acessar uma info)
 }
 
+export const getDataSpreedsheetRowsByTitle = async(title:string)=>{
+    let sheet:any;
+    await getDoc().then(doc => {
+        sheet = doc.sheetsByTitle[title];  //indice da planilha
+        // sheet.getRows().then(rows => {
+        //     rows.map(row => {
+        //         console.log(row.Nome);
+        //     })     
+        // })
+        
+    })
+    return sheet.getRows() //retorna as colunas da planilha
+}
 
-export const createNewSpreedsheet = async(id:number,header:any)=>{
+export const createNewSpreedsheet = async(id:number,header:any,title:string)=>{
 
     await getDoc().then(doc=>{
-    doc.addSheet({ title: `Paciente${id}`,headerValues: header });
-    console.log(`Planilha do Paciente ${id} Criada`)
+    doc.addSheet({ title: title,headerValues: header });
+    console.log(`Planilha ${title} Criada`)
     })
 }
 

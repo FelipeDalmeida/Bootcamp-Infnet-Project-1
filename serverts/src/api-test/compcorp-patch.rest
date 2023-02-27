@@ -1,0 +1,7 @@
+PATCH  http://localhost:8080/compcorp/1
+Content-Type: application/json
+
+{
+    "Massa": "44%",
+    "IMC": "Teste"
+ }
