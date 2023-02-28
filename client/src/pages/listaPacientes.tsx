@@ -11,9 +11,9 @@ const ListaPacientes = ({ }) => {
     });
 
 
-    return <div className={"p-2 grid grid-cols-12 gap-4 "}>
+    return <div className={"h-full p-2 grid grid-cols-12 gap-4 "}>
 
-        <div className={"relative my-10 py-10 border-slate-100 rounded-2xl shadow-2xl shadow-blue-500/50  box-border  col-start-0 col-span-12 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 xxl:col-start-4 xxl:col-span-6"}>
+        <div className={"relative my-10 py-10 border border-slate-200 rounded-2xl shadow-2xl shadow-blue-500/50  box-border  col-start-0 col-span-12 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 xxl:col-start-4 xxl:col-span-6"}>
             <Text className={"text-center mb-10 text-4xl"} type={"h1"} text={"Pacientes"} />
             <div className={"border-b  border-b-blue-400 px-10 grid grid-cols-2 sm:grid-cols-5  gap-0"}>
 

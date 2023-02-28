@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import {lazy, Suspense, useState, useEffect} from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Input from './components/input/input';
 import Button from './components/button/button';
 import CriaForm from './components/input/criaform';
-import CadastraPaciente from './pages/cadastraPaciente';
-import ListaPacientes from './pages/listaPacientes';
+
 function App() {
 
   // const [teste,setTest]=useState("")
@@ -16,15 +15,21 @@ function App() {
   // }
 
 
-
-
+const CadastraPaciente =lazy(()=>import('./pages/cadastraPaciente'))
+const ListaPacientes =lazy(()=>import('./pages/listaPacientes'))
 
   
-  return (<>    
-
-    <CadastraPaciente/>
-    <ListaPacientes/>
-    </>
+  return (
+  <Router>      
+    <Suspense fallback={"<Load/>"}>
+    <Routes>
+      <Route path="/" element={<CadastraPaciente/>}/>
+      <Route path="/cadastro" element={<CadastraPaciente/>}/>
+      <Route path="/pacientes" element={<ListaPacientes/>}/>
+    
+    </Routes>
+    </Suspense>
+  </Router>
 
   );
 }
