@@ -78,12 +78,12 @@ const CadastraPaciente = ({})=>{
     //   <Input  label={form.labelData_Avaliação} onChange={(e:any)=>setForm({...form,Data_Avaliação:e.target.value})} value={form.Data_Avaliação} />,
     ]
 
-    return <div className={"p-2 grid grid-cols-12 gap-4 "}>
+    return <div className={"h-[calc(100vh-theme(spacing.20))] md:h-auto p-2 grid grid-cols-12 gap-4 "}>
         <form className={"sm:relative my-10 pb-10 border border-slate-200 rounded-2xl shadow-2xl shadow-blue-500/50  box-border  col-start-0 col-span-12 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 xxl:col-start-4 xxl:col-span-6"}>
         <Text className={"text-center mt-6 text-4xl"} type={"h1"} text={"Cadastro"}/>
-        <CriaForm inputs={inputs} className={"grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"}/>
+        <CriaForm inputs={inputs} className={"grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}/>
         <div className={"mx-10 "}>
-            <Button title={"Cadastar Paciente"} className={"m-0 p-2 w-full sm:absolute sm:right-12 sm:bottom-6 sm:w-60"} onClick={sendData}/>
+            <Button title={"Cadastar Paciente"} className={"m-0 p-2 w-full md:absolute md:right-12 md:bottom-6 md:w-60"} onClick={sendData}/>
         </div>
         </form>
         </div>

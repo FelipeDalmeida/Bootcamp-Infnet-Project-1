@@ -4,7 +4,7 @@ import './App.css';
 import Input from './components/input/input';
 import Button from './components/button/button';
 import CriaForm from './components/input/criaform';
-
+import Header from './pages/header';
 function App() {
 
   // const [teste,setTest]=useState("")
@@ -22,6 +22,7 @@ const ListaPacientes =lazy(()=>import('./pages/listaPacientes'))
   return (
   <Router>      
     <Suspense fallback={"<Load/>"}>
+    <Header/>
     <Routes>
       <Route path="/" element={<CadastraPaciente/>}/>
       <Route path="/cadastro" element={<CadastraPaciente/>}/>

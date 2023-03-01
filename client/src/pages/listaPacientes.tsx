@@ -2,14 +2,19 @@ import Button from '../components/button/button';
 import { useAxios } from '../service/useAxios'
 import { Paciente } from '../types/types';
 import Text from '../components/text/text';
+import { useEffect } from 'react';
 
 
 const ListaPacientes = ({ }) => {
-    const [{ data: listaPacientes }] = useAxios<Paciente[]>({
+    const [{ data: listaPacientes },setPacientes] = useAxios<Paciente[]>({
         url: "/pacientes",
         method: "get",
     });
 
+    useEffect(()=>{
+        setPacientes()
+        console.log("Atualizado")
+    },[])
 
     return <div className={"h-full p-2 grid grid-cols-12 gap-4 "}>
 

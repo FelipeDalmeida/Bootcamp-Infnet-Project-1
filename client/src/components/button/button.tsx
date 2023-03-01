@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-
+import { IconType } from 'react-icons/lib';
 interface MessageProps {
     title: string;
     type?:'submit' | 'reset' | 'button' | undefined;
