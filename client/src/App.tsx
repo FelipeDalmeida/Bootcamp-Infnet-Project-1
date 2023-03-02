@@ -17,7 +17,8 @@ function App() {
 
 const CadastraPaciente =lazy(()=>import('./pages/cadastraPaciente'))
 const ListaPacientes =lazy(()=>import('./pages/listaPacientes'))
-
+const Hemograma =lazy(()=>import('./pages/hemograma'))
+const PacientePage=lazy(()=>import('./pages/Paciente'))
   
   return (
   <Router>      
@@ -27,6 +28,7 @@ const ListaPacientes =lazy(()=>import('./pages/listaPacientes'))
       <Route path="/" element={<CadastraPaciente/>}/>
       <Route path="/cadastro" element={<CadastraPaciente/>}/>
       <Route path="/pacientes" element={<ListaPacientes/>}/>
+      <Route path="/pacientes/:id" element={<PacientePage/>}/>
     
     </Routes>
     </Suspense>

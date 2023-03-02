@@ -5,5 +5,5 @@ export type Paciente = {
         Idade:number | string;
         Sexo:string;
         Data_Nascimento:string;
-        Data_Avaliação:string
+        Data_Avaliacao:string
     }

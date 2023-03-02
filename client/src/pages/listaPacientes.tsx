@@ -3,9 +3,15 @@ import { useAxios } from '../service/useAxios'
 import { Paciente } from '../types/types';
 import Text from '../components/text/text';
 import { useEffect } from 'react';
-
+import { useNavigate } from "react-router";
 
 const ListaPacientes = ({ }) => {
+ 
+    const navigate=useNavigate();
+    const goToPage=(page:string)=>{navigate(page)}
+
+
+
     const [{ data: listaPacientes },setPacientes] = useAxios<Paciente[]>({
         url: "/pacientes",
         method: "get",
@@ -29,14 +35,14 @@ const ListaPacientes = ({ }) => {
                 <div className={"self-center hidden sm:block"}></div>
             </div>
 
-            <>{listaPacientes?listaPacientes.map(({ id, Nome, Sobrenome, Idade, Sexo, Data_Nascimento, Data_Avaliação }: Paciente) => {
+            <>{listaPacientes?listaPacientes.map(({ id, Nome, Sobrenome, Idade, Sexo, Data_Nascimento, Data_Avaliacao }: Paciente) => {
 
                 return <div className={" border-b  border-b-blue-400  px-10 grid grid-cols-2 sm:grid-cols-5  gap-0 "} key={id}>
                     <div className={"self-center"}><Text className={"sm:hidden font-bold"} text={`Nome:`} /><Text text={`${Nome} ${Sobrenome}`} /></div>
                     <div className={"self-center"}><Text className={"sm:hidden font-bold"} text={`Idade:`} /><Text text={`${Idade}`} /></div>
                     <div className={"self-center"}><Text className={"sm:hidden font-bold"} text={`Sexo:`} />{`${Sexo}`}</div>
                     <div className={"self-center"}><Text className={"sm:hidden font-bold"} text={`Nascimento:`} />{`${Data_Nascimento}`}</div>
-                    <Button title={"Exibir"} className={"w-full col-start-0 col-span-2 sm:col-start-5 sm:w-30"} />
+                    <Button title={"Exibir"} className={"w-full col-start-0 col-span-2 sm:col-start-5 sm:w-30"} onClick={()=>goToPage(`/pacientes/${id}`)} />
                 </div>
 
 

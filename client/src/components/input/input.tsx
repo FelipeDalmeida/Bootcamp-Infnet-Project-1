@@ -11,12 +11,13 @@ interface MessageProps {
     placeholder?:string;
     labelClassName?:string;
     onChange?: (e:any) => void;
-    value?:string;
+    value?:string|number;
     className?:string;
-    error?:string
+    error?:string;
+    disabled?:boolean
   }
 
-const Input =({label,type,name,id,placeholder,onChange,value,className,error}:MessageProps)=>{
+const Input =({label,type,name,id,placeholder,onChange,value,className,error,disabled}:MessageProps)=>{
     
   const [hover,setHover]=useState(false)  
   const [showPassorwd,setShowPassword]=useState(false)
@@ -44,6 +45,7 @@ const Input =({label,type,name,id,placeholder,onChange,value,className,error}:Me
         placeholder={placeholder?placeholder:""}
         onChange={onChange}
         value={value}
+        disabled={disabled}
       />
     <button className="absolute right-3 bottom-3 text-xl" onClick={changePasswordVisibility}>{type==='password'?(showPassorwd?<FaEyeSlash/>:<FaEye/>):null}</button>
     </div>
@@ -60,6 +62,7 @@ Input.propTypes={
   className:PropTypes.string,
   value:PropTypes.string,
   error:PropTypes.string,
+  disabled:PropTypes.bool
 }
 
 Input.defaultProps={
@@ -71,6 +74,7 @@ Input.defaultProps={
   value:null,
   className:"",
   error:"",
+  disabled:false,
 }
 
 

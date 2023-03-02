@@ -7,5 +7,5 @@ Content-Type: application/json
     "Idade":30,
     "Sexo":"Feminino",
     "Data_Nascimento":"30/11/1992",
-    "Data_Avaliação":"23/02/2023"
+    "Data_Avaliacao":"23/02/2023"
  }

@@ -12,7 +12,7 @@ type Pacientes = {
     Idade:number;
     Sexo:string;
     Data_Nascimento:string;
-    Data_Avaliação:string
+    Data_Avaliacao?:string | Date
 }
 
 
@@ -27,14 +27,14 @@ export const carregaPacientes = async()=>{
             Sobrenome:paciente.Sobrenome,
             Data_Nascimento:paciente.Data_Nascimento,
             Sexo:paciente.Sexo,
-            Data_Avaliação:paciente.Data_Avaliação
+            Data_Avaliacao:paciente.Data_Avaliacao
         })
     })
     return  Pacientes
 }
 
 export const carregaPacienteID = async(id:Number)=>{
-    let Paciente:Pacientes={id:0,Nome:"",Idade:0,Sobrenome:"",Sexo:"",Data_Nascimento:"",Data_Avaliação:""}
+    let Paciente:Pacientes={id:0,Nome:"",Idade:0,Sobrenome:"",Sexo:"",Data_Nascimento:"",Data_Avaliacao:""}
     const response = await getDataSpreedsheet(0)
     response.map((paciente:Pacientes)=>{
         if(paciente.id==id){
@@ -46,7 +46,7 @@ export const carregaPacienteID = async(id:Number)=>{
                 Sobrenome:paciente.Sobrenome,
                 Sexo:paciente.Sexo,
                 Data_Nascimento:paciente.Data_Nascimento,
-                Data_Avaliação:paciente.Data_Avaliação
+                Data_Avaliacao:paciente.Data_Avaliacao
             }
             console.log(`Paciente ${Paciente.Nome} com id: ${Paciente.id} carregado`)  
         }
@@ -114,7 +114,7 @@ export const criaPlanilhaPaciente = async(id:number)=>{
 
 export const criaPaciente = async(data:Pacientes)=>{
     const novoID = await idNovoPaciente()
-    data={id:novoID,...data}
+    data={id:novoID,Data_Avaliacao:new Date(),...data}
     pushDataSpreadsheet(data,0)
     await criaPlanilhaPaciente(novoID)
 

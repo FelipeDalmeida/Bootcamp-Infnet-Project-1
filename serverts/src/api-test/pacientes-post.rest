@@ -6,6 +6,5 @@ Content-Type: application/json
     "Sobrenome":"Seabra",
     "Idade":28,
     "Sexo":"Masculino",
-    "Data_Nascimento":"18/02/1994",
-    "Data_Avaliação":"17/02/2023"
+    "Data_Nascimento":"18/02/1994"
  }
