@@ -35,7 +35,7 @@ const ListaPacientes = ({ }) => {
                 <div className={"self-center hidden sm:block"}></div>
             </div>
 
-            <>{listaPacientes?listaPacientes.map(({ id, Nome, Sobrenome, Idade, Sexo, Data_Nascimento, Data_Avaliacao }: Paciente) => {
+            <>{listaPacientes?(listaPacientes?.length>0)?listaPacientes.map(({ id, Nome, Sobrenome, Idade, Sexo, Data_Nascimento, Data_Avaliacao }: Paciente) => {
 
                 return <div className={" border-b  border-b-blue-400  px-10 grid grid-cols-2 sm:grid-cols-5  gap-0 "} key={id}>
                     <div className={"self-center"}><Text className={"sm:hidden font-bold"} text={`Nome:`} /><Text text={`${Nome} ${Sobrenome}`} /></div>
@@ -46,7 +46,8 @@ const ListaPacientes = ({ }) => {
                 </div>
 
 
-            }):<Text className={"text-rose-700 text-center my-10 text-3xl"} type={"h2"} text={"Sem pacientes cadastrados"}  />}</>
+            }):<Text className={"text-rose-700 text-center my-10 text-3xl"} type={"h2"} text={"Sem pacientes cadastrados"}  />:
+            <Text className={"text-rose-700 text-center my-10 text-3xl"} type={"h2"} text={"Sem pacientes cadastrados"}  />}</>
 
 
 

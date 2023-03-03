@@ -168,8 +168,10 @@ export const alteraDadosPaciente = async(id:number,data:any)=>{
     //data={...rowsPacientes[index],...data}
     //console.log(data)
     let keys=Object.keys(data)
+    console.log(keys)
     keys.map(key=>{ rowsPacientes[index][key]=data[key]})
    
     await  rowsPacientes[index].save()
+    console.log("Alterado")
 }
 

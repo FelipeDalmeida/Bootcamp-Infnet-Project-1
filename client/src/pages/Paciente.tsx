@@ -7,6 +7,9 @@ import { Paciente } from "../types/types"
 import Text from "../components/text/text"
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom"
+import { FaTrashAlt, FaPen } from "react-icons/fa";
+import { delay } from "../service/delay"
+import ExameHemograma from "./hemograma"
 
 
 const PacientePage = ({ }) => {
@@ -22,16 +25,20 @@ const PacientePage = ({ }) => {
         labelSexo: "Sexo",
         labelData_Nascimento: "Data de nasciemnto",
         labelData_Avaliacao: "Data da Avaliação",
+        labelButtonAtualizar:"Atualizar"
     }
     const forminicial:Paciente={
         
-            Nome: "Paciente",
+            Nome: "",
             Sobrenome: "",
             Idade: "",
             Sexo: "",
             Data_Nascimento: "",     
             Data_Avaliacao:""
     }
+
+    const [form, setForm] = useState(forminicial);
+    const [disabled,setDisabled]=useState(true)
 
     const [{ data: infoPaciente },getPaciente] = useAxios<Paciente>(
         {
@@ -42,10 +49,46 @@ const PacientePage = ({ }) => {
       manual: true,
      }
     );
-    
-    const [form, setForm] = useState(forminicial);
-    const [disabled,setDisabled]=useState(true)
 
+    const [,editPaciente]=useAxios<Paciente>(
+        {
+            url: `/pacientes/${id}`,
+            method:"patch",
+            data:{
+                ...form
+            }
+        },
+        {
+            manual: true,
+        }
+    )
+
+    const [,deletePaciente] = useAxios<Paciente>(
+        {
+        url: `/pacientes/${id}`,
+        method: "delete",
+    },
+    {
+      manual: true,
+     }
+    );
+    
+
+
+    const editarForm=()=>{
+        setDisabled(!disabled)
+    }
+
+    const atualizaForm=()=>{
+        editPaciente()
+        setDisabled(true)
+    }
+
+    const deletaForm=async ()=>{
+        deletePaciente()
+        await delay(0.5)
+        goToPage(`/pacientes`)
+    }
    
     useEffect(()=>{
         getPaciente()
@@ -53,7 +96,6 @@ const PacientePage = ({ }) => {
     },[])
 
     useEffect(() => {
-
         if (infoPaciente) {
           setForm(infoPaciente);
         }
@@ -69,13 +111,21 @@ const PacientePage = ({ }) => {
     ]
 
     return <div className={"h-[calc(100vh-theme(spacing.20))] md:h-auto p-2 grid grid-cols-12 gap-4 "}>
-        <form className={"sm:relative my-10 pb-10 border border-slate-200 rounded-2xl shadow-2xl shadow-blue-500/50  box-border  col-start-0 col-span-12 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 xxl:col-start-4 xxl:col-span-6"}>
+        <div className={"relative my-10 pb-10 border border-slate-200 rounded-2xl shadow-2xl shadow-blue-500/50  box-border col-start-0 col-span-12 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 xxl:col-start-4 xxl:col-span-6"}>
+        <form className={"   "}>
             <Text className={"text-center mt-6 text-4xl"} type={"h1"} text={`${form.Nome} ${form.Sobrenome}`} />
             <CriaForm inputs={inputs} className={"grid-cols-1 md:grid-cols-2 lg:grid-cols-3"} />
-            {/* <div className={"mx-10 "}>
-                <Button title={"Cadastar Paciente"} className={"m-0 p-2 w-full md:absolute md:right-12 md:bottom-6 md:w-60"} onClick={sendData} />
-            </div> */}
+            
+            
         </form>
+        
+        <button className={`absolute  top-2 left-6 ${disabled?"hidden":""}`}>{<FaTrashAlt className={"text-red-700 h-10 w-5"} onClick={deletaForm}/>}</button>
+        <button className={`absolute top-3 right-6`}>{<FaPen className={"text-sky-700 h-10 w-5"} onClick={()=>{editarForm()}}/>}</button>
+        <div className={`mx-10 ${disabled?"hidden":""}`}>
+                <Button title={text.labelButtonAtualizar} className={"m-0 p-2 w-full md:absolute md:right-12 md:bottom-6 md:w-60"} onClick={atualizaForm} />
+        </div>
+        </div>
+
     </div>
 }
 
