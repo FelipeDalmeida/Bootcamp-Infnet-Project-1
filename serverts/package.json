@@ -19,9 +19,11 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@types/firebase": "^3.2.1",
     "@types/gapi": "^0.0.44",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "firebase": "^9.17.2",
     "gapi": "^0.0.3",
     "google-auth-library": "^8.7.0",
     "google-spreadsheet": "^3.3.0",

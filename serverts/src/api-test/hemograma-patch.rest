@@ -1,7 +1,0 @@
-PATCH  http://localhost:8080/hemograma/1
-Content-Type: application/json
-
-{
-    "Hematocritos": "44%",
-    "Leucocitos": "Teste"
- }

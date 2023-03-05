@@ -5,6 +5,7 @@ import Input from './components/input/input';
 import Button from './components/button/button';
 import CriaForm from './components/input/criaform';
 import Header from './pages/header';
+import Load from './components/load/load';
 function App() {
 
   // const [teste,setTest]=useState("")
@@ -22,9 +23,11 @@ const CadastraAvCompCorp = lazy(()=>import('./pages/cadastraCompCorp'))
 const AvCompCorp =lazy(()=>import('./pages/compcorp'))
 const CadastraAvAntropometrica=lazy(()=>import('./pages/cadastraAntropometrica'))
 const AvAntropometrica =lazy(()=>import('./pages/antropometrica'))
+const Login =lazy(()=>import('./pages/auth/login'))
+const Register =lazy(()=>import('./pages/auth/registro'))
   return (
   <Router>      
-    <Suspense fallback={"<Load/>"}>
+    <Suspense fallback={<Load/>}>
     <Header/>
     <Routes>
       <Route path="/" element={<CadastraPaciente/>}/>
@@ -35,6 +38,8 @@ const AvAntropometrica =lazy(()=>import('./pages/antropometrica'))
       <Route path="/compcorp/:id/:index" element={<AvCompCorp/>}/>
       <Route path="/cadastroantropometrica/:id" element={<CadastraAvAntropometrica/>}/>
       <Route path="/antropometrica/:id/:index" element={<AvAntropometrica/>}/>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/registro" element={<Register/>}/>
     
     </Routes>
     </Suspense>
