@@ -3,7 +3,7 @@ import { useState } from "react"
 import Button from "../components/button/button"
 import CriaForm from "../components/input/criaform"
 import Input from "../components/input/input"
-import { Paciente } from "../types/types"
+import { Pacientes } from "../types/types"
 import Text from "../components/text/text"
 import { useNavigate } from "react-router";
 import { delay } from "../service/delay"
@@ -26,7 +26,6 @@ const CadastraPaciente = ({ }) => {
         Sexo: "",
         labelData_Nascimento: "Data de nasciemnto",
         Data_Nascimento: "",
-        labelData_Avaliacao: "Data da Avaliação",
     })
     const [ , cadastroPaciente] = useAxios(
         {
@@ -68,7 +67,7 @@ const CadastraPaciente = ({ }) => {
         <Input label={form.labelData_Nascimento} onChange={(e: any) => setForm({ ...form, Data_Nascimento: e.target.value })} value={form.Data_Nascimento} />,
     ]
 
-    return <div className={"h-[calc(100vh-theme(spacing.20))] md:h-auto p-2 grid grid-cols-12 gap-4 "}>{id}
+    return <div className={"h-[calc(100vh-theme(spacing.20))] md:h-auto p-2 grid grid-cols-12 gap-4 "}>
         <form className={"sm:relative my-10 pb-10 border border-slate-200 rounded-2xl shadow-2xl shadow-blue-500/50  box-border  col-start-0 col-span-12 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 xxl:col-start-4 xxl:col-span-6"}>
             <Text className={"text-center mt-6 text-4xl"} type={"h1"} text={"Cadastro"} />
             <CriaForm inputs={inputs} className={"grid-cols-1 md:grid-cols-2 lg:grid-cols-3"} />

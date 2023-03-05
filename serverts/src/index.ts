@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import {pacientes} from "./routes/pacientes"
-import { hemograma } from './routes/hemograma';
 import { antropometrica } from './routes/avAntropometrica';
 import { compcorp } from './routes/avComposicaoCorportal';
 
@@ -9,7 +8,7 @@ const app=express();
 app.use(express.json());
 app.use(cors());
 app.use("/pacientes",pacientes)
-app.use("/hemograma",hemograma)
+// app.use("/hemograma",hemograma)
 app.use("/antropometrica",antropometrica)
 app.use("/compcorp",compcorp)
 

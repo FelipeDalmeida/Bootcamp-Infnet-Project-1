@@ -1,19 +1,10 @@
 // Planilha com funções específicas do projeto de pacientes bootcampinfnet
 
-
+import type { Pacientes } from '../types/types';
 import { pushDataSpreadsheet, createNewSpreedsheet,getDataSpreedsheet,getDataSpreedsheetByTitle } from './googleSpreedsheets'
 
 
 
-type Pacientes = {
-    id?:number;
-    Nome:string;
-    Sobrenome:string;
-    Idade:number;
-    Sexo:string;
-    Data_Nascimento:string;
-    Data_Avaliacao?:string | Date
-}
 
 
 export const carregaPacientes = async()=>{
@@ -27,14 +18,14 @@ export const carregaPacientes = async()=>{
             Sobrenome:paciente.Sobrenome,
             Data_Nascimento:paciente.Data_Nascimento,
             Sexo:paciente.Sexo,
-            Data_Avaliacao:paciente.Data_Avaliacao
+            Data_Cadastro:paciente.Data_Cadastro
         })
     })
     return  Pacientes
 }
 
 export const carregaPacienteID = async(id:Number)=>{
-    let Paciente:Pacientes={id:0,Nome:"",Idade:0,Sobrenome:"",Sexo:"",Data_Nascimento:"",Data_Avaliacao:""}
+    let Paciente:Pacientes={id:0,Nome:"",Idade:0,Sobrenome:"",Sexo:"",Data_Nascimento:"",Data_Cadastro:""}
     const response = await getDataSpreedsheet(0)
     response.map((paciente:Pacientes)=>{
         if(paciente.id==id){
@@ -46,7 +37,7 @@ export const carregaPacienteID = async(id:Number)=>{
                 Sobrenome:paciente.Sobrenome,
                 Sexo:paciente.Sexo,
                 Data_Nascimento:paciente.Data_Nascimento,
-                Data_Avaliacao:paciente.Data_Avaliacao
+                Data_Cadastro:paciente.Data_Cadastro
             }
             console.log(`Paciente ${Paciente.Nome} com id: ${Paciente.id} carregado`)  
         }
@@ -72,7 +63,6 @@ export const idNovoPaciente=async()=>{
 export const criaPlanilhaPaciente = async(id:number)=>{
 
     const variaveisAntropometrica = [
-        "Massa",
         "Estatura",
         "Comprimento_Pe",
         "Altura_Ombro",
@@ -82,6 +72,7 @@ export const criaPlanilhaPaciente = async(id:number)=>{
         "Largura_Quadril",
         "Altura_Joelho",
         "Altura_Tornozelo",
+        "Data_Avaliacao"
     ]
     const variaveisComCorporal =[
         "Massa",
@@ -90,31 +81,32 @@ export const criaPlanilhaPaciente = async(id:number)=>{
         "Gordura_Visceral",
         "Metabolismo_Basal",
         "Musculos_Esqueleticos",
-        "Idade_Corporal"
+        "Idade_Corporal",
+        "Data_Avaliacao"
     ]
 
-    const variaveisHemograma =[
-        "Hemacias",
-        "Hemoglobina",
-        "Hematocritos",
-        "Leucocitos",
-        "VGM",
-        "HGM",
-        "CHGM",
-        "RDW",
-        "Plaquetas"
-    ]
+    // const variaveisHemograma =[
+    //     "Hemacias",
+    //     "Hemoglobina",
+    //     "Hematocritos",
+    //     "Leucocitos",
+    //     "VGM",
+    //     "HGM",
+    //     "CHGM",
+    //     "RDW",
+    //     "Plaquetas"
+    // ]
 
     await createNewSpreedsheet(id,variaveisAntropometrica,`antropometricaid${id}`)
     await createNewSpreedsheet(id,variaveisComCorporal,`compcorporalid${id}`)
-    await createNewSpreedsheet(id,variaveisHemograma,`hemograma${id}`)
+    //await createNewSpreedsheet(id,variaveisHemograma,`hemograma${id}`)
     console.log(`Planilha do Paciente ${id} criada`)
 
 }
 
 export const criaPaciente = async(data:Pacientes)=>{
     const novoID = await idNovoPaciente()
-    data={id:novoID,Data_Avaliacao:new Date(),...data}
+    data={id:novoID,Data_Cadastro:new Date(),...data}
     pushDataSpreadsheet(data,0)
     await criaPlanilhaPaciente(novoID)
 
@@ -126,12 +118,12 @@ export const deletaPaciente = async(id:number)=>{
     let rowsPacientes:any;//rows da Sheet de index 0
     let sheetPacienteAntropometrica:any; //Planilha do paciente com a Avaliação Antropométrica
     let sheetPacienteCompCorporal:any; //Planilha do paciente com a Avaliação de Composição Corporal
-    let sheetPacienteHemograma:any; //Planilha do paciente com o Hemograma
+    // let sheetPacienteHemograma:any; //Planilha do paciente com o Hemograma
 
     rowsPacientes = await getDataSpreedsheet(0)
     sheetPacienteAntropometrica = await getDataSpreedsheetByTitle(`antropometricaid${id}`) 
     sheetPacienteCompCorporal = await getDataSpreedsheetByTitle(`compcorporalid${id}`) 
-    sheetPacienteHemograma = await getDataSpreedsheetByTitle(`hemograma${id}`) 
+    // sheetPacienteHemograma = await getDataSpreedsheetByTitle(`hemograma${id}`) 
 
     let index:number=-1;
     rowsPacientes.map((row:any,ind:any)=>{ //encontrar a coluna do paciente
@@ -147,7 +139,7 @@ export const deletaPaciente = async(id:number)=>{
     rowsPacientes[index].delete();
     sheetPacienteAntropometrica.delete();
     sheetPacienteCompCorporal.delete();
-    sheetPacienteHemograma.delete()
+    // sheetPacienteHemograma.delete()
 
     console.log(`Paciente ${nome} com id ${id} deletado`)
 
@@ -165,8 +157,6 @@ export const alteraDadosPaciente = async(id:number,data:any)=>{
             index=Number(ind)
         }
     })
-    //data={...rowsPacientes[index],...data}
-    //console.log(data)
     let keys=Object.keys(data)
     console.log(keys)
     keys.map(key=>{ rowsPacientes[index][key]=data[key]})

@@ -17,9 +17,11 @@ function App() {
 
 const CadastraPaciente =lazy(()=>import('./pages/cadastraPaciente'))
 const ListaPacientes =lazy(()=>import('./pages/listaPacientes'))
-const ExameHemograma =lazy(()=>import('./pages/hemograma'))
 const PacientePage=lazy(()=>import('./pages/Paciente'))
-  
+const CadastraAvCompCorp = lazy(()=>import('./pages/cadastraCompCorp'))
+const AvCompCorp =lazy(()=>import('./pages/compcorp'))
+const CadastraAvAntropometrica=lazy(()=>import('./pages/cadastraAntropometrica'))
+const AvAntropometrica =lazy(()=>import('./pages/antropometrica'))
   return (
   <Router>      
     <Suspense fallback={"<Load/>"}>
@@ -29,7 +31,10 @@ const PacientePage=lazy(()=>import('./pages/Paciente'))
       <Route path="/cadastro" element={<CadastraPaciente/>}/>
       <Route path="/pacientes" element={<ListaPacientes/>}/>
       <Route path="/pacientes/:id" element={<PacientePage/>}/>
-      <Route path="/hemograma/:id" element={<ExameHemograma/>}/>
+      <Route path="/cadastrocompcorp/:id" element={<CadastraAvCompCorp/>}/>
+      <Route path="/compcorp/:id/:index" element={<AvCompCorp/>}/>
+      <Route path="/cadastroantropometrica/:id" element={<CadastraAvAntropometrica/>}/>
+      <Route path="/antropometrica/:id/:index" element={<AvAntropometrica/>}/>
     
     </Routes>
     </Suspense>

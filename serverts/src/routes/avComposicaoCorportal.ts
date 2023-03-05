@@ -13,8 +13,8 @@ compcorp.get('/all/:id',async(req,res)=>{
 });
 
 //lista a Avaliação de Composição Corporal de um paciente especifico
-compcorp.get('/:id',async(req,res)=>{
-    const compcorp =await carregaAvCompCorpID(Number(req.params.id))
+compcorp.get('/:id/:index',async(req,res)=>{
+    const compcorp =await carregaAvCompCorpID(Number(req.params.id),Number(req.params.index))
     res.status(200).json(compcorp)
 });
 
@@ -29,9 +29,9 @@ compcorp.post('/:id',async(req,res)=>{
     });
 });
 
-// // Sobrescreve os dados do ultíma Avaliação de Composição Corporal de um paciente
-compcorp.put('/:id',async (req,res)=>{
-    await alteraDadosAvCompCorp(Number(req.params.id),req.body)
+// // Sobrescreve os dados da Avaliação de Composição Corporal de um paciente
+compcorp.put('/:id/:index',async (req,res)=>{
+    await alteraDadosAvCompCorp(Number(req.params.id),Number(req.params.index),req.body)
 
     res.status(200).json({
         success: true,
@@ -42,8 +42,8 @@ compcorp.put('/:id',async (req,res)=>{
 })
 
 // // Realiza uma atualização parcial nos dados de Avaliação de Composição Corporal  de um paciente
-compcorp.patch("/:id", async (req, res) => {
-    await alteraDadosAvCompCorp(Number(req.params.id),req.body)
+compcorp.patch("/:id/:index", async (req, res) => {
+    await alteraDadosAvCompCorp(Number(req.params.id),Number(req.params.index),req.body)
 
     res.status(200).json({
         success: true,
@@ -53,9 +53,9 @@ compcorp.patch("/:id", async (req, res) => {
     });
 })
 
-// // Deleta os dados da ultímo Avaliação de Composição Corporal  de um paciente
-compcorp.delete("/:id", (req, res) => {
-    deletaUltimaAvCompCorp(Number(req.params.id))
+// // Deleta os dados da Avaliação de Composição Corporal  de um paciente
+compcorp.delete("/:id/:index", (req, res) => {
+    deletaUltimaAvCompCorp(Number(req.params.id),Number(req.params.index))
     res.json({
         success: true,
         data: {

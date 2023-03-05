@@ -13,8 +13,8 @@ antropometrica.get('/all/:id',async(req,res)=>{
 });
 
 //lista a Avaliação Antropométrica de um paciente especifico
-antropometrica.get('/:id',async(req,res)=>{
-    const AvAntropometrica =await carregaAvAntropometricaID(Number(req.params.id))
+antropometrica.get('/:id/:index',async(req,res)=>{
+    const AvAntropometrica =await carregaAvAntropometricaID(Number(req.params.id),Number(req.params.index))
     res.status(200).json(AvAntropometrica)
 });
 
@@ -30,8 +30,8 @@ antropometrica.post('/:id',async(req,res)=>{
 });
 
 // // Sobrescreve os dados do ultíma Avaliação Antropométrica de um paciente
-antropometrica.put('/:id',async (req,res)=>{
-    await alteraDadosAvAntropometrica(Number(req.params.id),req.body)
+antropometrica.put('/:id/:index',async (req,res)=>{
+    await alteraDadosAvAntropometrica(Number(req.params.id),Number(req.params.index),req.body)
 
     res.status(200).json({
         success: true,
@@ -42,8 +42,8 @@ antropometrica.put('/:id',async (req,res)=>{
 })
 
 // // Realiza uma atualização parcial nos dados de Avaliação Antropométrica  de um paciente
-antropometrica.patch("/:id", async (req, res) => {
-    await alteraDadosAvAntropometrica(Number(req.params.id),req.body)
+antropometrica.patch("/:id/:index", async (req, res) => {
+    await alteraDadosAvAntropometrica(Number(req.params.id),Number(req.params.index),req.body)
 
     res.status(200).json({
         success: true,
@@ -54,8 +54,8 @@ antropometrica.patch("/:id", async (req, res) => {
 })
 
 // // Deleta os dados da ultímo Avaliação Antropométrica  de um paciente
-antropometrica.delete("/:id", (req, res) => {
-    deletaUltimaAvAntropometrica(Number(req.params.id))
+antropometrica.delete("/:id/:index", (req, res) => {
+    deletaUltimaAvAntropometrica(Number(req.params.id),Number(req.params.index))
     res.json({
         success: true,
         data: {
