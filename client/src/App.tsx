@@ -23,8 +23,6 @@ if(!isAuth){
   return ( <Router>   
     <Suspense fallback={<Load/>}>
     <Routes>
-
-      <Route path="/login" element={<Login setIsAuth={setIsAuth}/>}/>
       <Route path="/" element={<Login setIsAuth={setIsAuth}/>}/>
       <Route path="*" element={<Login setIsAuth={setIsAuth}/>}/>
       <Route path="/registro" element={<Register setIsAuth={setIsAuth}/>}/>

@@ -68,7 +68,7 @@ const Register = ({ setIsAuth }: any) => {
 
             <div className={"mx-10 "}>
                 <Button title={text.labelButton} className={"m-0 p-2 w-full "} onClick={registar} />
-                <Button title={text.labelButtonLogin} className={"m-0 p-2 w-full "} onClick={() => { goToPage('/login') }} />
+                <Button title={text.labelButtonLogin} className={"m-0 p-2 w-full "} onClick={() => { goToPage('/') }} />
             </div>
         </div>
     </div>
