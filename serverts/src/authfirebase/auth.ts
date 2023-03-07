@@ -34,6 +34,7 @@ export const singInModified = async (email: string, password: string) => { //fun
         err = { ...err, code: error.code }
       }
     })
+  if(response){console.log(response.user?.uid)}
   return err
 }
 
@@ -101,7 +102,7 @@ export function verifyUserConected() {
   return response
 }
 
-function singOut() {
+export function singOut() {
   firebase.auth().signOut().then(function () {
 
     console.log("Sign-out successful.")
@@ -112,4 +113,4 @@ function singOut() {
     // An error happened.
   });
 }
-export { signInWithEmailPassword, signUpWithEmailPassword, singOut }
+export { signInWithEmailPassword, signUpWithEmailPassword, }

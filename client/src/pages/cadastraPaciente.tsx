@@ -14,17 +14,20 @@ const CadastraPaciente = ({ }) => {
     const navigate=useNavigate();
     const goToPage=(page:string)=>{navigate(`/pacientes/${page}`)}
 
+
+    const text={
+        labelNome: "Nome",
+        labelSobrenome: "Sobrenome",
+        labelIdade: "Idade",
+        labelSexo: "Sexo",
+        labelData_Nascimento: "Data de Nascimento",
+    }
     const [id,setID]=useState("")
     const [form, setForm] = useState({
-        labelNome: "Nome",
         Nome: "",
-        labelSobrenome: "Sobrenome",
         Sobrenome: "",
-        labelIdade: "Idade",
         Idade: "",
-        labelSexo: "Sexo",
         Sexo: "",
-        labelData_Nascimento: "Data de nasciemnto",
         Data_Nascimento: "",
     })
     const [ , cadastroPaciente] = useAxios(
@@ -60,11 +63,11 @@ const CadastraPaciente = ({ }) => {
 
 
     const inputs = [
-        <Input label={form.labelNome} onChange={(e: any) => setForm({ ...form, Nome: e.target.value })} value={form.Nome} />,
-        <Input label={form.labelSobrenome} onChange={(e: any) => setForm({ ...form, Sobrenome: e.target.value })} value={form.Sobrenome} />,
-        <Input label={form.labelIdade} onChange={(e: any) => setForm({ ...form, Idade: e.target.value })} value={form.Idade} />,
-        <Input label={form.labelSexo} onChange={(e: any) => setForm({ ...form, Sexo: e.target.value })} value={form.Sexo} />,
-        <Input label={form.labelData_Nascimento} onChange={(e: any) => setForm({ ...form, Data_Nascimento: e.target.value })} value={form.Data_Nascimento} />,
+        <Input label={text.labelNome} onChange={(e: any) => setForm({ ...form, Nome: e.target.value })} value={form.Nome} />,
+        <Input label={text.labelSobrenome} onChange={(e: any) => setForm({ ...form, Sobrenome: e.target.value })} value={form.Sobrenome} />,
+        <Input label={text.labelIdade} onChange={(e: any) => setForm({ ...form, Idade: e.target.value })} value={form.Idade} />,
+        <Input label={text.labelSexo} onChange={(e: any) => setForm({ ...form, Sexo: e.target.value })} value={form.Sexo} />,
+        <Input label={text.labelData_Nascimento} onChange={(e: any) => setForm({ ...form, Data_Nascimento: e.target.value })} value={form.Data_Nascimento} />,
     ]
 
     return <div className={"h-[calc(100vh-theme(spacing.20))] md:h-auto p-2 grid grid-cols-12 gap-4 "}>

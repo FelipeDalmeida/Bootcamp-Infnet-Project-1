@@ -1,19 +1,12 @@
 import {lazy, Suspense, useState, useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Input from './components/input/input';
-import Button from './components/button/button';
-import CriaForm from './components/input/criaform';
 import Header from './pages/header';
 import Load from './components/load/load';
+import { useAxios } from '../src/service/useAxios'
 function App() {
 
-  // const [teste,setTest]=useState("")
-
-  // const funcaoTeste=(e:any)=>{
-  //   setTest(e.target.value)
-  //   console.log(teste)
-  // }
+const [isAuth,setIsAuth]=useState(false)
 
 
 const CadastraPaciente =lazy(()=>import('./pages/cadastraPaciente'))
@@ -25,27 +18,44 @@ const CadastraAvAntropometrica=lazy(()=>import('./pages/cadastraAntropometrica')
 const AvAntropometrica =lazy(()=>import('./pages/antropometrica'))
 const Login =lazy(()=>import('./pages/auth/login'))
 const Register =lazy(()=>import('./pages/auth/registro'))
-  return (
-  <Router>      
+
+if(!isAuth){ 
+  return ( <Router>   
     <Suspense fallback={<Load/>}>
-    <Header/>
     <Routes>
-      <Route path="/" element={<CadastraPaciente/>}/>
-      <Route path="/cadastro" element={<CadastraPaciente/>}/>
-      <Route path="/pacientes" element={<ListaPacientes/>}/>
-      <Route path="/pacientes/:id" element={<PacientePage/>}/>
-      <Route path="/cadastrocompcorp/:id" element={<CadastraAvCompCorp/>}/>
-      <Route path="/compcorp/:id/:index" element={<AvCompCorp/>}/>
-      <Route path="/cadastroantropometrica/:id" element={<CadastraAvAntropometrica/>}/>
-      <Route path="/antropometrica/:id/:index" element={<AvAntropometrica/>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/registro" element={<Register/>}/>
+
+      <Route path="/login" element={<Login setIsAuth={setIsAuth}/>}/>
+      <Route path="/" element={<Login setIsAuth={setIsAuth}/>}/>
+      <Route path="*" element={<Login setIsAuth={setIsAuth}/>}/>
+      <Route path="/registro" element={<Register setIsAuth={setIsAuth}/>}/>
     
     </Routes>
     </Suspense>
-  </Router>
-
-  );
+  </Router>);
+ }
+  else{
+    return (
+      <Router>  
+            
+        <Suspense fallback={<Load/>}>
+        <Header setIsAuth={setIsAuth}/>
+        <Routes>
+          <Route path="/" element={<CadastraPaciente/>}/>
+          <Route path="/cadastro" element={<CadastraPaciente/>}/>
+          <Route path="/pacientes" element={<ListaPacientes/>}/>
+          <Route path="/pacientes/:id" element={<PacientePage/>}/>
+          <Route path="/cadastrocompcorp/:id" element={<CadastraAvCompCorp/>}/>
+          <Route path="/compcorp/:id/:index" element={<AvCompCorp/>}/>
+          <Route path="/cadastroantropometrica/:id" element={<CadastraAvAntropometrica/>}/>
+          <Route path="/antropometrica/:id/:index" element={<AvAntropometrica/>}/>
+        
+        </Routes>
+        </Suspense>
+      </Router>
+      
+      );
+  }
+  
 }
 
 export default App;

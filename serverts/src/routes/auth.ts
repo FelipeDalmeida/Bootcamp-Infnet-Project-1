@@ -1,5 +1,5 @@
 import express from 'express'
-import { singInModified, singUpModified, verifyUserConected } from '../authfirebase/auth';
+import { singInModified, singUpModified } from '../authfirebase/auth';
 
 export const auth = express.Router();
 
@@ -8,11 +8,12 @@ export const auth = express.Router();
 
 
 //lista todas as Avaliações Antropométricas de um paciente
-auth.get('/login',async(req,res)=>{
+auth.post('/login',async(req,res)=>{
+
     const response=await singInModified(req.body.email,req.body.senha)
  
     if (response.code){
-        res.status(401).json({code:response.code,success:false})
+        res.status(404).json({code:response.code,success:false})
     } else {
         res.status(200).json({success:true})
     }
@@ -20,15 +21,15 @@ auth.get('/login',async(req,res)=>{
 });
 
 auth.post('/register',async(req,res)=>{
-    let err={}
     const response = await singUpModified(req.body.email,req.body.senha)
-    console.log(response)
     if(response.code){
-        res.status(403).json({code:response.code,success:false})
+        res.status(404).json({code:response.code,success:false})
     }
     else{
         res.status(200).json({success:true})
     }
 
 });
+
+
 
