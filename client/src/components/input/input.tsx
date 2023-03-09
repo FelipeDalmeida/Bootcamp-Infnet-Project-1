@@ -40,7 +40,7 @@ const Input =({label,type,name,id,placeholder,onChange,value,className,error,dis
     </label>
     </span>
       <input
-        type={'password'?(showPassorwd?'text':type):type}
+        type={type==='password'?(showPassorwd?'text':type):type}
         name={name}
         id={id}
         className={`block w-full border rounded-xl p-2 focus-visible:outline-none border-slate-400 focus:border-sky-600 focus:border-2 ${error?"border-2 border-rose-600 focus:border-rose-600 focus:border-rose-600":""}`}

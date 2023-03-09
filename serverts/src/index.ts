@@ -9,7 +9,7 @@ import { auth } from './routes/auth'
 // Firebase Inicio
 import { initializeApp } from "firebase/app";
 import firebase from 'firebase/compat/app';
-// TODO: Add SDKs for Firebase products that you want to use
+// : Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
